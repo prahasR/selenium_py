@@ -3,12 +3,13 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from PIL import Image 
+#from PIL import Image 
 import os
 
+contest=input("contest no.: ")
 PATH = "C:\Program Files (x86)\chromedriver_win32\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
-contest=input("contest no.: ")
+
 con_name=contest+"/"
 site = "https://codeforces.com/contest/"+contest+"/problems"
 driver.get(site) 
@@ -27,20 +28,6 @@ for i in range(0,len(prob)):
     temp_path=os.path.join(path,tag)
     os.mkdir(temp_path)
     
-    #location = prob[i].location 
-    #size = prob[i].size 
-    #driver.save_screenshot("full_img.png")
-    #x = location['x'] 
-    #y = location['y'] 
-    #w = x + size['width'] 
-    #h = y + size['height']
-    #fullImg = Image.open("full_img.png") 
-    #cropImg = fullImg.crop(x, y, w, h) 
-    #cropImg.save('cropImage.png')
-    #element = prob[i].find_element_by_class_name("problem-statement")
-    #img='problem_img.png' 
-    #prob[i].screenshot(img)
-    #os.path.join(temp_path, img) 
     st=prob[i].find_element_by_class_name("sample-test")
     inpt=st.find_elements_by_class_name("input")
     otpt=st.find_elements_by_class_name("output")
@@ -58,3 +45,18 @@ for i in range(0,len(prob)):
         with open(os.path.join(temp_path, file2), 'w') as fp2:
             pass
             fp2.write(otpuut[11:])
+for p in range(0,len(prob)):
+    driver.get("https://codeforces.com/problemset/problem/"+contest+"/"+store[p])
+    #na=driver.find_element_by_class_name("ttypography")
+    #driver.save_screenshot(parent_dir+"/"+contest+"/"+store[p]+"/"+"problem"+store[p]+".png")
+
+    try:
+        na=WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "ttypography"))
+        )
+        na.screenshot(parent_dir+"/"+contest+"/"+store[p]+"/"+"problem"+store[p]+".png")
+
+    finally:
+        continue
+driver.quit()
+  
