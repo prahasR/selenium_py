@@ -19,12 +19,14 @@ path = os.path.join(parent_dir, con_name)
 os.mkdir(path)
 no = driver.find_element_by_class_name("problem-frames")
 prob=no.find_elements_by_class_name("problem-statement")
+store=[]
 
 for i in range(0,len(prob)):
     header=prob[i].find_element_by_class_name("header")
     title = header.find_element_by_class_name("title").text
     ti= title.split('.')
     tag=ti[0]
+    store.append(tag)
     temp_path=os.path.join(path,tag)
     os.mkdir(temp_path)
     
