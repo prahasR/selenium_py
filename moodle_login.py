@@ -6,15 +6,18 @@ import os
 PATH = "C:\Program Files (x86)\chromedriver_win32\chromedriver.exe" 
 driver = webdriver.Chrome(PATH)
 driver.get("https://moodle.iitd.ac.in/login/index.php") 
+username=input("Username: ")
+password=input("Password: ")
+
 cap = driver.find_element_by_id("login").text
 st= cap[44:]
 words= st.split(' ') 
 user = driver.find_element_by_id("username")
-password = driver.find_element_by_id("password")
+paswrd = driver.find_element_by_id("password")
 check=driver.find_element_by_id("rememberusername")
 btn=driver.find_element_by_id("loginbtn")
 capt=driver.find_element_by_id("valuepkg3") 
-user.send_keys("mt1200768") 
+user.send_keys(username) 
 
 temp = re.findall(r'\d+', st) 
 l = list(map(int, temp))
@@ -41,7 +44,7 @@ elif(do==4):
 capt.send_keys(Keys.BACKSPACE)
 capt.send_keys(out)
 check.click()
-print(os.environ)
-s = os.environ.get('PASS')
-password.send_keys(s) 
+#print(os.environ)
+#s = os.environ.get('PASS')
+paswrd.send_keys(password) 
 btn.click()  
