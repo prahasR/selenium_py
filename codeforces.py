@@ -3,9 +3,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-#from PIL import Image 
 import os
 
+#getting contest number as input from user
 contest=input("contest no.: ")
 PATH = "C:\Program Files (x86)\chromedriver_win32\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
@@ -14,7 +14,10 @@ con_name=contest+"/"
 site = "https://codeforces.com/contest/"+contest+"/problems"
 driver.get(site) 
 
-parent_dir="C:/"
+#defining the location where for saving files
+#the files will be saved in your C drive with file_name as contest_number
+#change parent_dir if want to save at another location
+parent_dir="C:/"              
 path = os.path.join(parent_dir, con_name)  
 os.mkdir(path)
 no = driver.find_element_by_class_name("problem-frames")
@@ -25,6 +28,8 @@ for i in range(0,len(prob)):
     header=prob[i].find_element_by_class_name("header")
     title = header.find_element_by_class_name("title").text
     ti= title.split('.')
+    
+    #getting tag of each problem of a contest
     tag=ti[0]
     store.append(tag)
     temp_path=os.path.join(path,tag)
